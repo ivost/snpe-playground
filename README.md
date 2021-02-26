@@ -19,3 +19,7 @@ python3 $SNPE_ROOT/models/inception_v3/scripts/setup_inceptionv3.py -a ./assets 
 export ASSET_DIR=./assets
 
 ```
+
+The Inception v3 Imagenet classification model is trained to classify images with 1000 labels.
+cd inception_v3
+snpe-net-run --container dlc/inception_v3.dlc --input_list data/cropped/raw_list.txt

@@ -1,0 +1,4 @@
+/home/ivo/snpe/models/inception_v3/data/cropped/trash_bin.raw
+/home/ivo/snpe/models/inception_v3/data/cropped/chairs.raw
+/home/ivo/snpe/models/inception_v3/data/cropped/notice_sign.raw
+/home/ivo/snpe/models/inception_v3/data/cropped/plastic_cup.raw
