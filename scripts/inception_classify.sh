@@ -7,6 +7,6 @@ echo "$W"
 
 /tmp/snpe-sample -d $W/dlc/inception_v3.dlc -i $W/data/cropped/file_list.txt -o /tmp
 
-python ./scripts/show_inceptionv3_classifications.py -i $W/data/cropped/file_list.txt -o /tmp -l $W/data/imagenet_slim_labels.txt
+python ./scripts/inception_results.py -i $W/data/cropped/file_list.txt -o /tmp -l $W/data/imagenet_slim_labels.txt
 
 

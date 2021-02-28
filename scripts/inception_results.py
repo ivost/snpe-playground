@@ -6,6 +6,8 @@
 
 import argparse
 import heapq
+from pathlib import Path
+
 import numpy as np
 import os
 
@@ -39,6 +41,7 @@ def main():
         raise RuntimeError('Invalid labels_file: need 1000 categories')
     with open(input_list, 'r') as f:
         input_files = [line.strip() for line in f.readlines()]
+        input_files = [Path(f).name for f in input_files]
 
     if len(input_files) <= 0:
         print('No files listed in input_files')
@@ -61,11 +64,11 @@ def main():
                 max_prob_index = np.where(float_array == max_prob)[0][0]
                 max_prob_category = labels[max_prob_index]
 
-                display_text = '%s %f %s %s' % (
+                display_text = '%s %.2f %s %s' % (
                 val.ljust(max_filename_len), max_prob, str(max_prob_index).rjust(3), max_prob_category)
                 print(display_text)
             else:
-                top5_prob = heapq.nlargest(5, xrange(len(float_array)), float_array.take)
+                top5_prob = heapq.nlargest(5, range(len(float_array)), float_array.take)
                 for i, idx in enumerate(top5_prob):
                     prob = float_array[idx]
                     prob_category = labels[idx]

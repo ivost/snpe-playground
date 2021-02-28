@@ -4,6 +4,7 @@
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 #
 import argparse
+import subprocess
 from pathlib import Path
 
 import numpy as np
@@ -132,6 +133,8 @@ def main():
                              'on model accuracy measurement.')
 
     args = parser.parse_args()
+    scripts_dir = os.path.join('..', 'scripts')
+    create_file_list_script = os.path.join(scripts_dir, 'create_file_list.py')
 
     size = args.size
     src = os.path.abspath(args.img_folder)
@@ -139,11 +142,24 @@ def main():
         os.mkdir(args.dest)
     dest = os.path.abspath(args.dest)
     resize_type = args.resize_type
-
     assert resize_type == RESIZE_METHOD_BILINEAR or resize_type == RESIZE_METHOD_ANTIALIAS, \
         "Image resize method should be antialias or bilinear"
 
+    cmd = ['python', create_file_list_script,
+           '-i', src,
+           '-o', os.path.join(src, "file_list.txt"),
+           '-e', '*.jpg',
+           ]
+    subprocess.call(cmd)
+
     convert_img(src, dest, size, resize_type)
+
+    cmd = ['python', create_file_list_script,
+           '-i', dest,
+           '-o', os.path.join(dest, "file_list.txt"),
+           '-e', '*.raw',
+           ]
+    subprocess.call(cmd)
 
 
 if __name__ == '__main__':

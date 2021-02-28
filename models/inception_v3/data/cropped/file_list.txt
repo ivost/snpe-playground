@@ -1,0 +1,9 @@
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/plastic_cup.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02206856_1089_bee.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02062744_3044_whale.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02391049_8140_zebra.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02324045_9077_rabbit.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02129604_7642_tiger.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/chairs.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02062744_332_whale.raw
+/home/ivo/github/snpe-playground/models/inception_v3/data/cropped/n02342885_4388_hamster.raw
