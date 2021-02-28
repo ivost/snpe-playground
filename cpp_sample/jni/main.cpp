@@ -48,6 +48,10 @@
 const int FAILURE = 1;
 const int SUCCESS = 0;
 
+using namespace std;
+
+char * VERSION = "1.0.2.28";
+
 int main(int argc, char** argv)
 {
     enum {UNKNOWN, USERBUFFER_FLOAT, USERBUFFER_TF8, ITENSOR};
@@ -64,6 +68,8 @@ int main(int argc, char** argv)
     bool runtimeSpecified = false;
     bool execStatus = false;
     bool usingInitCaching = false;
+
+    cout << "Demo v." << VERSION << endl;
 
     // Process command line arguments
     int opt = 0;
@@ -481,6 +487,7 @@ int main(int argc, char** argv)
             // Load input/output buffers with ITensor
             if(batchSize > 1)
                 std::cout << "Batch " << i << ":" << std::endl;
+            std::cout << "Load input tensor " << i << endl;
             std::unique_ptr<zdl::DlSystem::ITensor> inputTensor = loadInputTensor(snpe, inputs[i]);
             if(!inputTensor)
             {
@@ -491,6 +498,7 @@ int main(int argc, char** argv)
             // Save the execution results if execution successful
             if (execStatus == true)
             {
+                std::cout << "Save output " << i << endl;
                if(!saveOutput(outputTensorMap, OutputDir, i * batchSize, batchSize))
                {
                    return EXIT_FAILURE;

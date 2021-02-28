@@ -36,10 +36,8 @@ INCEPTION_V3_DLC_FILENAME = 'inception_v3.dlc'
 INCEPTION_V3_DLC_QUANTIZED_FILENAME = 'inception_v3_quantized.dlc'
 INCEPTION_V3_LBL_FILENAME = 'imagenet_slim_labels.txt'
 OPT_4_INFERENCE_SCRIPT = 'optimize_for_inference.py'
-RAW_LIST_FILE = 'raw_list.txt'
-TARGET_RAW_LIST_FILE = 'target_raw_list.txt'
-
-
+RAW_LIST_FILE = 'file_list.txt'
+TARGET_RAW_LIST_FILE = 'file_list.txt'
 
 def wget(download_dir, file_url):
     cmd = ['wget', '-N', '--directory-prefix={}'.format(download_dir), file_url]

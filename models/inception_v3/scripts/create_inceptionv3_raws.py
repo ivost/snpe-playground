@@ -123,8 +123,8 @@ def convert_img(src, dest, size, resize_type):
 def main():
     parser = argparse.ArgumentParser(description="Batch convert jpgs",
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', '--img_folder', type=str, default='./data')
-    parser.add_argument('-d', '--dest', type=str, default='./data/resized')
+    parser.add_argument('-i', '--img_folder', type=str, default='../data')
+    parser.add_argument('-d', '--dest', type=str, default='../data/cropped')
     parser.add_argument('-s', '--size', type=int, default=299)
     parser.add_argument('-r', '--resize_type', type=str, default=RESIZE_METHOD_BILINEAR,
                         help='Select image resize type antialias or bilinear. Image resize type should match '
@@ -147,4 +147,4 @@ def main():
 
 
 if __name__ == '__main__':
-    exit(main())
+    main()

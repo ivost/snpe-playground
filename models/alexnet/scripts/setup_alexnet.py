@@ -157,12 +157,12 @@ def setup_assets(alexnet_data_dir, download):
     create_file_list_script = os.path.join(scripts_dir, 'create_file_list.py')
     cmd = ['python', create_file_list_script,
            '-i', data_cropped_dir,
-           '-o', os.path.join(data_cropped_dir, 'raw_list.txt'),
+           '-o', os.path.join(data_cropped_dir, 'file_list.txt'),
            '-e', '*.raw']
     subprocess.call(cmd)
     cmd = ['python', create_file_list_script,
            '-i', data_cropped_dir,
-           '-o', os.path.join(data_dir, 'target_raw_list.txt'),
+           '-o', os.path.join(data_dir, 'file_list.txt'),
            '-e', '*.raw',
            '-r']
     subprocess.call(cmd)

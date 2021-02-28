@@ -41,7 +41,7 @@ bool saveOutput (zdl::DlSystem::TensorMap outputTensorMap,
                  << name << ".raw";
             auto tensorPtr = outputTensorMap.getTensor(name);
             size_t batchChunk = tensorPtr->getSize() / batchSize;
-
+            std::cout << "Save tensor " << name << std::endl;
             if(!SaveITensorBatched(path.str(), tensorPtr, i, batchChunk))
             {
                 return false;

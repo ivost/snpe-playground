@@ -1,0 +1,9 @@
+/home/ivo/github/snpe-playground/models/inception_v3/data/plastic_cup.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02391049_8140_zebra.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02062744_332_whale.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02062744_3044_whale.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/chairs.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02206856_1089_bee.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02324045_9077_rabbit.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02342885_4388_hamster.jpg
+/home/ivo/github/snpe-playground/models/inception_v3/data/n02129604_7642_tiger.jpg

@@ -32,7 +32,8 @@ def create_file_list(input_dir, output_filename, ext_pattern, print_out=False, r
     else:
         with open(output_filename, 'w') as f:
             f.write('\n'.join(file_list))
-            if print_out: print('%s created listing %d files.' % (output_filename, len(file_list)))
+            if print_out:
+                print('%s created listing %d files.' % (output_filename, len(file_list)))
 
 
 def main():
@@ -40,10 +41,10 @@ def main():
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input_dir',
                         help='Input directory to look up files.',
-                        default='.')
+                        default='../data')
     parser.add_argument('-o', '--output_filename',
                         help='Output filename - will overwrite existing file.',
-                        default='file_list.txt')
+                        default='../data/file_list.txt')
     parser.add_argument('-e', '--ext_pattern',
                         help='Lookup extension pattern, e.g. *.jpg, *.raw',
                         default='*.jpg')
