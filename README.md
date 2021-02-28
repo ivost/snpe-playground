@@ -17,12 +17,13 @@ If the assets are already downloaded to a directory (e.g. ~/tmpdir) then issue t
 mkdir ./assets
 python3 $SNPE_ROOT/models/inception_v3/scripts/setup_inceptionv3.py -a ./assets -d
 export ASSET_DIR=./assets
-
 ```
 
 The Inception v3 Imagenet classification model is trained to classify images with 1000 labels.
+```
 cd inception_v3
 snpe-net-run --container dlc/inception_v3.dlc --input_list data/cropped/raw_list.txt
+```
 
 
 ====

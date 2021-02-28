@@ -1,5 +1,1 @@
-export ASSET_DIR=/tmp/assets
-# [[ ! -d $ASSET_DIR ]] && mkdir -p $ASSET_DIR
-python3 $SNPE_ROOT/models/inception_v3/scripts/setup_inceptionv3.py --assets $ASSET_DIR --download --runtime cpu
-
-cp -v $SNPE_ROOT/models/inception_v3/dlc/inception_v3.dlc ../models/inception_v3/dlc
+# see model/inception_v3/scripts/setup_inceprion_v3
