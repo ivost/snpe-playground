@@ -54,7 +54,7 @@ def main():
             cur_results_file = os.path.join(output_dir, cur_results_dir, 'InceptionV3/Predictions/Reshape_1:0.raw')
             if not os.path.isfile(cur_results_file):
                 raise RuntimeError('missing results file: ' + cur_results_file)
-
+            # create numpy array from results tensor file
             float_array = np.fromfile(cur_results_file, dtype=np.float32)
             if len(float_array) != 1001:
                 raise RuntimeError(str(len(float_array)) + ' outputs in ' + cur_results_file)
