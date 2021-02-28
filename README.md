@@ -23,3 +23,37 @@ export ASSET_DIR=./assets
 The Inception v3 Imagenet classification model is trained to classify images with 1000 labels.
 cd inception_v3
 snpe-net-run --container dlc/inception_v3.dlc --input_list data/cropped/raw_list.txt
+
+
+====
+
+install caffee on ubu16 py3.5
+
+https://github.com/adeelz92/Install-Caffe-on-Ubuntu-16.04-Python-3
+
+(venv) 05:29:21 caffe$ export PYTHONPATH=$HOME/caffe/python
+(venv) 05:29:53 caffe$ ls $PYTHONPATH 
+caffe        CMakeLists.txt  draw_net.py       train.py
+classify.py  detect.py       requirements.txt
+(venv) 05:29:57 caffe$ python3 -m site
+sys.path = [
+    '/home/ivo/caffe',
+    '/home/ivo/caffe/python',
+    '/usr/lib/python35.zip',
+    '/usr/lib/python3.5',
+    '/usr/lib/python3.5/plat-x86_64-linux-gnu',
+    '/usr/lib/python3.5/lib-dynload',
+    '/home/ivo/venv/lib/python3.5/site-packages',
+    '/home/ivo/.local/lib/python3.5/site-packages',
+    '/usr/lib/python3.5/site-packages',
+    '/usr/local/lib/python3.5/dist-packages',
+    '/usr/lib/python3/dist-packages',
+]
+USER_BASE: '/home/ivo/.local' (exists)
+USER_SITE: '/home/ivo/.local/lib/python3.5/site-packages' (exists)
+ENABLE_USER_SITE: True
+
+
+****
+
+pip install python-dateutil --upgrade

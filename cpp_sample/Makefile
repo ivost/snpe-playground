@@ -5,15 +5,15 @@
 # Specify the compiler flags
 #CXX ?= g++
 
-CXXFLAGS += -std=c++11 -fPIC -march=x86-64
+CXXFLAGS += -std=c++11 -fPIC -march=x86-64 -g
 
+SNPE_ROOT=/home/ivo/venv/snpe-1.40.0.2130
 
 # Include paths
 INCLUDES += -I $(SNPE_ROOT)/include/zdl
 
 # Specify the paths to the libraries
-LDFLAGS  += -L $(SNPE_ROOT)/lib/x86_64-linux-clang
-
+LDFLAGS  += -L $(SNPE_ROOT)/lib/x86_64-linux-clang -g
 
 # Specify the link libraries
 LLIBS    += -lSNPE 
