@@ -4,24 +4,28 @@
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 #
 import argparse
+from pathlib import Path
+
 import numpy as np
 import os
 
 from PIL import Image
 
 RESIZE_METHOD_ANTIALIAS = "antialias"
-RESIZE_METHOD_BILINEAR  = "bilinear"
+RESIZE_METHOD_BILINEAR = "bilinear"
+
 
 def __get_img_raw(img_filepath):
     img_filepath = os.path.abspath(img_filepath)
     img = Image.open(img_filepath)
-    img_ndarray = np.array(img) # read it
+    img_ndarray = np.array(img)  # read it
     if len(img_ndarray.shape) != 3:
         raise RuntimeError('Image shape' + str(img_ndarray.shape))
     if (img_ndarray.shape[2] != 3):
         raise RuntimeError('Require image with rgb but channel is %d' % img_ndarray.shape[2])
     # reverse last dimension: rgb -> bgr
     return img_ndarray
+
 
 def __create_mean_raw(img_raw, mean_rgb):
     if img_raw.shape[2] != 3:
@@ -42,6 +46,7 @@ def __create_mean_raw(img_raw, mean_rgb):
     # back to h, w, c
     mean_raw = np.transpose(mean_raw, (1, 2, 0))
     return mean_raw.astype(np.float32)
+
 
 def __create_raw_incv3(img_filepath, mean_rgb, div, req_bgr_raw, save_uint8):
     img_raw = __get_img_raw(img_filepath)
@@ -68,10 +73,11 @@ def __create_raw_incv3(img_filepath, mean_rgb, div, req_bgr_raw, save_uint8):
 
     return 0
 
-def __resize_square_to_jpg(src, dst, size,resize_type):
+
+def __resize_square_to_jpg(src, dst, size, resize_type):
     src_img = Image.open(src)
     # If black and white image, convert to rgb (all 3 channels the same)
-    if len(np.shape(src_img)) == 2: src_img = src_img.convert(mode = 'RGB')
+    if len(np.shape(src_img)) == 2: src_img = src_img.convert(mode='RGB')
     # center crop to square
     width, height = src_img.size
     short_dim = min(height, width)
@@ -83,42 +89,44 @@ def __resize_square_to_jpg(src, dst, size,resize_type):
     )
     img = src_img.crop(crop_coord)
     # resize to inceptionv3 size
-    if resize_type == RESIZE_METHOD_BILINEAR :
+    if resize_type == RESIZE_METHOD_BILINEAR:
         dst_img = img.resize((size, size), Image.BILINEAR)
-    else :
+    else:
         dst_img = img.resize((size, size), Image.ANTIALIAS)
     # save output - save determined from file extension
     dst_img.save(dst)
     return 0
 
-def convert_img(src,dest,size,resize_type):
+
+def convert_img(src, dest, size, resize_type):
     print("Converting images for inception v3 network.")
 
     print("Scaling to square: " + src)
-    for root,dirs,files in os.walk(src):
+    for root, dirs, files in os.walk(src):
         for jpgs in files:
-            src_image=os.path.join(root, jpgs)
-            if('.jpg' in src_image):
+            src_image = os.path.join(root, jpgs)
+            if ('.jpg' in src_image):
                 print(src_image)
                 dest_image = os.path.join(dest, jpgs)
-                __resize_square_to_jpg(src_image,dest_image,size,resize_type)
+                __resize_square_to_jpg(src_image, dest_image, size, resize_type)
 
-    print("Image mean: " + dest)
-    for root,dirs,files in os.walk(dest):
+    print("Normalizing images in: " + dest)
+    for root, dirs, files in os.walk(dest):
         for jpgs in files:
-            src_image=os.path.join(root, jpgs)
-            if('.jpg' in src_image):
+            src_image = os.path.join(root, jpgs)
+            if '.jpg' in src_image:
                 print(src_image)
-                mean_rgb=(128,128,128)
-                __create_raw_incv3(src_image,mean_rgb,128,False,False)
+                mean_rgb = (128, 128, 128)
+                __create_raw_incv3(src_image, mean_rgb, 128, False, False)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Batch convert jpgs",formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-d', '--dest',type=str, required=True)
-    parser.add_argument('-s','--size',type=int, default=299)
-    parser.add_argument('-i','--img_folder',type=str, required=True)
-    parser.add_argument('-r','--resize_type',type=str, default=RESIZE_METHOD_BILINEAR,
+    parser = argparse.ArgumentParser(description="Batch convert jpgs",
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-i', '--img_folder', type=str, default='./data')
+    parser.add_argument('-d', '--dest', type=str, default='./data/resized')
+    parser.add_argument('-s', '--size', type=int, default=299)
+    parser.add_argument('-r', '--resize_type', type=str, default=RESIZE_METHOD_BILINEAR,
                         help='Select image resize type antialias or bilinear. Image resize type should match '
                              'resize type used on images with which model was trained, otherwise there may be impact '
                              'on model accuracy measurement.')
@@ -127,13 +135,16 @@ def main():
 
     size = args.size
     src = os.path.abspath(args.img_folder)
+    if not Path(src).exists():
+        os.mkdir(args.dest)
     dest = os.path.abspath(args.dest)
     resize_type = args.resize_type
 
     assert resize_type == RESIZE_METHOD_BILINEAR or resize_type == RESIZE_METHOD_ANTIALIAS, \
-           "Image resize method should be antialias or bilinear"
+        "Image resize method should be antialias or bilinear"
 
-    convert_img(src,dest,size,resize_type)
+    convert_img(src, dest, size, resize_type)
+
 
 if __name__ == '__main__':
     exit(main())

@@ -8,6 +8,7 @@ import argparse
 import glob
 import os
 
+
 def create_file_list(input_dir, output_filename, ext_pattern, print_out=False, rel_path=False):
     input_dir = os.path.abspath(input_dir)
     output_filename = os.path.abspath(output_filename)
@@ -26,11 +27,13 @@ def create_file_list(input_dir, output_filename, ext_pattern, print_out=False, r
         file_list = [os.path.relpath(file_path, output_dir) for file_path in file_list]
 
     if len(file_list) <= 0:
-        if print_out: print('No results with %s' % glob_path)
+        if print_out:
+            print('No results with %s' % glob_path)
     else:
         with open(output_filename, 'w') as f:
             f.write('\n'.join(file_list))
             if print_out: print('%s created listing %d files.' % (output_filename, len(file_list)))
+
 
 def main():
     parser = argparse.ArgumentParser(description="Create file listing matched extension pattern.",
@@ -50,6 +53,7 @@ def main():
     args = parser.parse_args()
 
     create_file_list(args.input_dir, args.output_filename, args.ext_pattern, print_out=True, rel_path=args.rel_path)
+
 
 if __name__ == '__main__':
     main()

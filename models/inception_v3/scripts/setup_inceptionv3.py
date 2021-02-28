@@ -7,32 +7,33 @@
 '''
 Helper script to download artifacts to run inception_v3 model with SNPE SDK.
 '''
-import tensorflow as tf
-import numpy as np
-import udo_setup_functions as UDO
-import os
-import subprocess
-import shutil
-import hashlib
 import argparse
-import sys
 import glob
+import hashlib
+import os
+import shutil
+import subprocess
+import sys
 
-INCEPTION_V3_ARCHIVE_CHECKSUM       = 'a904ddf15593d03c7dd786d552e22d73'
-INCEPTION_V3_ARCHIVE_FILE           = 'inception_v3_2016_08_28_frozen.pb.tar.gz'
-INCEPTION_V3_ARCHIVE_URL            = 'https://storage.googleapis.com/download.tensorflow.org/models/' + INCEPTION_V3_ARCHIVE_FILE
-INCEPTION_V3_PB_FILENAME            = 'inception_v3_2016_08_28_frozen.pb'
-INCEPTION_V3_PB_OPT_FILENAME        = 'inception_v3_2016_08_28_frozen_opt.pb'
-INCEPTION_V3_DLC_FILENAME           = 'inception_v3.dlc'
+import udo_setup_functions as UDO
+
+INCEPTION_V3_ARCHIVE_CHECKSUM = 'a904ddf15593d03c7dd786d552e22d73'
+INCEPTION_V3_ARCHIVE_FILE = 'inception_v3_2016_08_28_frozen.pb.tar.gz'
+INCEPTION_V3_ARCHIVE_URL = 'https://storage.googleapis.com/download.tensorflow.org/models/' + INCEPTION_V3_ARCHIVE_FILE
+INCEPTION_V3_PB_FILENAME = 'inception_v3_2016_08_28_frozen.pb'
+INCEPTION_V3_PB_OPT_FILENAME = 'inception_v3_2016_08_28_frozen_opt.pb'
+INCEPTION_V3_DLC_FILENAME = 'inception_v3.dlc'
 INCEPTION_V3_DLC_QUANTIZED_FILENAME = 'inception_v3_quantized.dlc'
-INCEPTION_V3_LBL_FILENAME           = 'imagenet_slim_labels.txt'
-OPT_4_INFERENCE_SCRIPT              = 'optimize_for_inference.py'
-RAW_LIST_FILE                       = 'raw_list.txt'
-TARGET_RAW_LIST_FILE                = 'target_raw_list.txt'
+INCEPTION_V3_LBL_FILENAME = 'imagenet_slim_labels.txt'
+OPT_4_INFERENCE_SCRIPT = 'optimize_for_inference.py'
+RAW_LIST_FILE = 'raw_list.txt'
+TARGET_RAW_LIST_FILE = 'target_raw_list.txt'
+
 
 def wget(download_dir, file_url):
     cmd = ['wget', '-N', '--directory-prefix={}'.format(download_dir), file_url]
     subprocess.call(cmd)
+
 
 def generateMd5(path):
     checksum = hashlib.md5()
@@ -44,20 +45,24 @@ def generateMd5(path):
             checksum.update(block)
     return checksum.hexdigest()
 
+
 def checkResource(inception_v3_data_dir, filename, md5):
     filepath = os.path.join(inception_v3_data_dir, filename)
     if not os.path.isfile(filepath):
-        raise RuntimeError(filename + ' not found at the location specified by ' + inception_v3_data_dir + '. Re-run with download option.')
+        raise RuntimeError(
+            filename + ' not found at the location specified by ' + inception_v3_data_dir + '. Re-run with download option.')
     else:
         checksum = generateMd5(filepath)
         if not checksum == md5:
             raise RuntimeError('Checksum of ' + filename + ' : ' + checksum + ' does not match checksum of file ' + md5)
+
 
 def find_optimize_for_inference():
     tensorflow_root = os.path.abspath(os.environ['TENSORFLOW_HOME'])
     for root, dirs, files in os.walk(tensorflow_root):
         if OPT_4_INFERENCE_SCRIPT in files:
             return os.path.join(root, OPT_4_INFERENCE_SCRIPT)
+
 
 def optimize_for_inference(model_dir, tensorflow_dir):
     # Try to optimize the inception v3 PB for inference
@@ -84,6 +89,7 @@ def optimize_for_inference(model_dir, tensorflow_dir):
 
     return pb_filename
 
+
 def prepare_data_images(snpe_root, model_dir, tensorflow_dir):
     # make a copy of the image files from the alexnet model data dir
     src_img_files = os.path.join(snpe_root, 'models', 'alexnet', 'data', '*.jpg')
@@ -104,7 +110,7 @@ def prepare_data_images(snpe_root, model_dir, tensorflow_dir):
     data_cropped_dir = os.path.join(data_dir, 'cropped')
     cmd = ['python', create_raws_script,
            '-i', data_dir,
-           '-d',data_cropped_dir]
+           '-d', data_cropped_dir]
     subprocess.call(cmd)
 
     print('INFO: Creating image list data files')
@@ -123,7 +129,7 @@ def prepare_data_images(snpe_root, model_dir, tensorflow_dir):
 
 
 def convert_to_dlc(pb_filename, model_dir, tensorflow_dir, runtime, udo, enable_htp):
-    print('INFO: Converting ' + pb_filename +' to SNPE DLC format')
+    print('INFO: Converting ' + pb_filename + ' to SNPE DLC format')
     dlc_dir = os.path.join(model_dir, 'dlc')
     if not os.path.isdir(dlc_dir):
         os.makedirs(dlc_dir)
@@ -155,18 +161,18 @@ def convert_to_dlc(pb_filename, model_dir, tensorflow_dir, runtime, udo, enable_
                 os.environ['LD_LIBRARY_PATH'] = x86_lib_path
             print(os.environ['LD_LIBRARY_PATH'])
             cmd.append('--udo_package_path')
-            cmd.append( os.path.join(x86_lib_path, 'libUdoSoftmaxUdoPackageReg.so'))
+            cmd.append(os.path.join(x86_lib_path, 'libUdoSoftmaxUdoPackageReg.so'))
         if (enable_htp and ('dsp' == runtime or "all" == runtime)):
-            print ('INFO: Compiling HTP metadata for DSP runtime.')
+            print('INFO: Compiling HTP metadata for DSP runtime.')
             cmd.append('--enable_htp')
         elif ('aip' == runtime or "all" == runtime):
-            print ('INFO: Compiling HTA metadata for AIP runtime.')
+            print('INFO: Compiling HTA metadata for AIP runtime.')
             # Enable compilation on the HTA after quantization
-            cmd.append ('--enable_hta')
-        subprocess.call(cmd , env=os.environ)
+            cmd.append('--enable_hta')
+        subprocess.call(cmd, env=os.environ)
+
 
 def setup_assets(inception_v3_data_dir, download, runtime, udo, enable_htp):
-
     if 'SNPE_ROOT' not in os.environ:
         raise RuntimeError('SNPE_ROOT not setup.  Please run the SDK env setup script.')
 
@@ -180,7 +186,7 @@ def setup_assets(inception_v3_data_dir, download, runtime, udo, enable_htp):
     runtimes_list = ['cpu', 'gpu', 'dsp', 'aip', 'all']
     if runtime not in runtimes_list:
         raise RuntimeError('%s not a valid runtime. See help.' % runtime)
-    if(runtime == 'all') and not udo:
+    if (runtime == 'all') and not udo:
         raise RuntimeError('--udo flag needed to use \'all\' runtime selection')
     if download:
         url_path = INCEPTION_V3_ARCHIVE_URL;
@@ -201,7 +207,7 @@ def setup_assets(inception_v3_data_dir, download, runtime, udo, enable_htp):
     tensorflow_dir = os.path.join(model_dir, 'tensorflow')
     if not os.path.isdir(tensorflow_dir):
         os.makedirs(tensorflow_dir)
-    cmd = ['tar', '-xzf',  os.path.join(inception_v3_data_dir, INCEPTION_V3_ARCHIVE_FILE), '-C', tensorflow_dir]
+    cmd = ['tar', '-xzf', os.path.join(inception_v3_data_dir, INCEPTION_V3_ARCHIVE_FILE), '-C', tensorflow_dir]
     subprocess.call(cmd)
 
     pb_filename = optimize_for_inference(model_dir, tensorflow_dir)
@@ -216,14 +222,12 @@ def setup_assets(inception_v3_data_dir, download, runtime, udo, enable_htp):
             os.mkdir(path_dsp)
             UDO.setup_udo(path_dsp, runtime, not is_quantized)
 
-
     convert_to_dlc(pb_filename, model_dir, tensorflow_dir, runtime, udo, enable_htp)
-
 
     print('INFO: Setup inception_v3 completed.')
 
-def getArgs():
 
+def getArgs():
     parser = argparse.ArgumentParser(
         prog=__file__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -234,19 +238,20 @@ def getArgs():
     required = parser.add_argument_group('required arguments')
     optional = parser.add_argument_group('optional arguments')
 
-    required.add_argument('-a', '--assets_dir', type=str, required=True,
-                        help='directory containing the inception_v3 assets')
+    required.add_argument('-a', '--assets_dir', type=str, default="/tmp",
+                          help='directory containing the inception_v3 assets')
     optional.add_argument('-d', '--download', action="store_true", required=False,
-                        help='Download inception_v3 assets to inception_v3 example directory')
+                          help='Download inception_v3 assets to inception_v3 example directory')
     optional.add_argument('-r', '--runtime', type=str, required=False,
-                        help='Choose a runtime to set up tutorial for. Choices: cpu, gpu, dsp, aip, all. \'all\' option is only supported with --udo flag')
+                          help='Choose a runtime to set up tutorial for. Choices: cpu, gpu, dsp, aip, all. \'all\' option is only supported with --udo flag')
     optional.add_argument('-u', '--udo', action="store_true", required=False,
-                        help='Generate and compile a user-defined operation package to be used with inception_v3. Softmax is simulated as a UDO for this script.')
+                          help='Generate and compile a user-defined operation package to be used with inception_v3. Softmax is simulated as a UDO for this script.')
     optional.add_argument('-l', '--htp', action="store_true", required=False,
-                        help='Offline prepare quantized model for htp')
+                          help='Offline prepare quantized model for htp')
     args = parser.parse_args()
 
     return args
+
 
 if __name__ == '__main__':
     args = getArgs()
