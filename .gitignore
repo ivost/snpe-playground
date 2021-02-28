@@ -40,3 +40,9 @@
 /models/inception_v3/tensorflow/imagenet_slim_labels.txt
 /models/inception_v3/tensorflow/inception_v3_2016_08_28_frozen.pb
 /models/inception_v3/tensorflow/inception_v3_2016_08_28_frozen_opt.pb
+/models/inception_v3/data/cropped/chairs.jpg
+/models/inception_v3/data/cropped/chairs.raw
+/models/inception_v3/data/cropped/plastic_cup.jpg
+/models/inception_v3/data/cropped/plastic_cup.raw
+/models/inception_v3/data/cropped/raw_list.txt
+/models/inception_v3/data/target_raw_list.txt
