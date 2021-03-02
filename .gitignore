@@ -47,3 +47,4 @@ __pycache__
 /models/inception_v3/data/cropped/raw_list.txt
 /models/inception_v3/data/target_raw_list.txt
 /output/
+/models/ssd_mobilenet_v2_coco/data/file_list.txt
