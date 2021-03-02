@@ -57,4 +57,14 @@ ENABLE_USER_SITE: True
 
 ****
 
+For ssd mobilenet
+
+https://developer.qualcomm.com/docs/snpe/convert_mobilenetssd.html
+
+wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+
+
+
+
+
 pip install python-dateutil --upgrade
