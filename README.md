@@ -68,3 +68,14 @@ wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_qua
 
 
 pip install python-dateutil --upgrade
+
+
+The input and output layers:
+
+Input layer is specified in MobileNetSSD_deploy.prototxt file, via input_shape.
+By default, the output layer is the last layer as specified in MobileNetSSD_deploy.prototxt file. In this case that is detection_out (DetectionOutput) layer.
+
+
+To see info about converted DLC model, use snpe-dlc-info tool
+
+snpe-dlc-info -i mobilenet_ssd.dlc

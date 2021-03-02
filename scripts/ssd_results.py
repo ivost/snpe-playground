@@ -19,6 +19,7 @@ LABELS = "data/labels.txt"
 FILE_LIST = "data/cropped/file_list.txt"
 RESULTS = "/tmp/output"
 
+
 def main():
     parser = argparse.ArgumentParser(description='Display inference results.')
     parser.add_argument('-i', '--input_list', default=os.path.join(ROOT, FILE_LIST),
@@ -58,13 +59,14 @@ def main():
         max_filename_len = max([len(file) for file in input_files])
 
         for idx, val in enumerate(input_files):
-            cur_results_dir = 'Result_' + str(idx)
-            cur_results_file = os.path.join(output_dir, cur_results_dir, 'detection_classes:0.raw')
-            if not os.path.isfile(cur_results_file):
-                raise RuntimeError('missing results file: ' + cur_results_file)
-            # create numpy array from results tensor file
-            float_array = np.fromfile(cur_results_file, dtype=np.float32)
-            print(float_array)
+            output = os.path.join(output_dir, 'Result_' + str(idx))
+            classes = read_results(output, 'detection_classes:0.raw')
+            classes2 = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_classes.raw')
+            scores = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_scores.raw')
+            num_detections = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_num_detections.raw')
+            boxes = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_boxes.raw')
+
+            #
             # if len(float_array) != 1001:
             #     raise RuntimeError(str(len(float_array)) + ' outputs in ' + cur_results_file)
 
@@ -86,5 +88,31 @@ def main():
             #         print(display_text)
 
 
+def read_results(dir, name):
+    results_file = os.path.join(dir, name)
+    arr = np.fromfile(results_file, dtype=np.float32)
+    print(name, arr)
+    return arr
+
+
 if __name__ == '__main__':
     main()
+
+'''
+Save tensor detection_classes:0
+Save path /tmp/output/Result_0/detection_classes:0.raw
+Saving, batchIndex 0, batchChunk 100
+Save tensor Postprocessor/BatchMultiClassNonMaxSuppression_classes
+Save path /tmp/output/Result_0/Postprocessor/BatchMultiClassNonMaxSuppression_classes.raw
+Saving, batchIndex 0, batchChunk 100
+Save tensor Postprocessor/BatchMultiClassNonMaxSuppression_scores
+Save path /tmp/output/Result_0/Postprocessor/BatchMultiClassNonMaxSuppression_scores.raw
+Saving, batchIndex 0, batchChunk 100
+Save tensor Postprocessor/BatchMultiClassNonMaxSuppression_num_detections
+Save path /tmp/output/Result_0/Postprocessor/BatchMultiClassNonMaxSuppression_num_detections.raw
+Saving, batchIndex 0, batchChunk 1
+Save tensor Postprocessor/BatchMultiClassNonMaxSuppression_boxes
+Save path /tmp/output/Result_0/Postprocessor/BatchMultiClassNonMaxSuppression_boxes.raw
+Saving, batchIndex 0, batchChunk 400
+
+'''

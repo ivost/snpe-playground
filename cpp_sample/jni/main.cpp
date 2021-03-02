@@ -51,7 +51,7 @@ const int SUCCESS = 0;
 
 using namespace std;
 
-char *VERSION = "1.3.2.1";
+string VERSION = "1.3.2.4";
 
 /*
  /tmp/snpe-sample -d $W/dlc/mobilenet_ssd.dlc -i $W/data/cropped/file_list.txt -o /tmp/output
@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
     std::string userBufferSourceStr = "CPUBUFFER";
     static zdl::DlSystem::Runtime_t runtime = zdl::DlSystem::Runtime_t::CPU;
     static zdl::DlSystem::RuntimeList runtimeList;
-    bool runtimeSpecified = false;
+    bool runtimeSpecified = true;
     bool execStatus = false;
     bool usingInitCaching = false;
 
@@ -295,9 +295,25 @@ int main(int argc, char **argv) {
         glBuffer->setGPUPlatformConfig(platformConfig);
     }
 #endif
+/*
+std::unique_ptr<zdl::SNPE::SNPE> setBuilderOptions(std::unique_ptr<zdl::DlContainer::IDlContainer> & container,
+                                                   zdl::DlSystem::Runtime_t runtime,
+                                                   zdl::DlSystem::RuntimeList runtimeList,
+                                                   zdl::DlSystem::UDLBundle udlBundle,
+                                                   bool useUserSuppliedBuffers,
+                                                   zdl::DlSystem::PlatformConfig platformConfig,
+                                                   bool useCaching)
+ */
+
+    cout << "setBuilderOptions " << endl;
+    auto isSSD = true;
+    useUserSuppliedBuffers = false;
+    usingInitCaching = false;
+    runtimeList.add(runtime);
 
     snpe = setBuilderOptions(container, runtime, runtimeList, udlBundle, useUserSuppliedBuffers, platformConfig,
-                             usingInitCaching);
+                         usingInitCaching, isSSD);
+
     if (snpe == nullptr) {
         std::cerr << "Error while building SNPE object." << std::endl;
         return EXIT_FAILURE;
@@ -326,7 +342,6 @@ int main(int argc, char **argv) {
         std::cerr << "Failed to start logger" << std::endl;
         return EXIT_FAILURE;
     }
-
     // Check the batch size for the container
     // SNPE 1.16.0 (and newer) assumes the first dimension of the tensor shape
     // is the batch size.
