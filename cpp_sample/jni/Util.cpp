@@ -303,6 +303,7 @@ bool SaveITensorBatched(const std::string& path, const zdl::DlSystem::ITensor* t
 {
    if(batchChunk == 0)
       batchChunk = tensor->getSize();
+   std::cout << "Saving, batchIndex " << batchIndex << ", batchChunk " << batchChunk << std::endl;
    // Create the directory path if it does not exist
    auto idx = path.find_last_of('/');
    if (idx != std::string::npos)

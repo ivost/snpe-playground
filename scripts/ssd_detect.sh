@@ -3,6 +3,6 @@ DIR=$(dirname "$SCRIPT")
 export W=$(realpath "$DIR/../models/ssd_mobilenet_v2_coco")
 echo "$W"
 
-/tmp/snpe-sample -d $W/dlc/mobilenet_ssd.dlc -i $W/data/cropped/file_list.txt -o /tmp
+/tmp/snpe-sample -d $W/dlc/mobilenet_ssd.dlc -i $W/data/cropped/file_list.txt -o /tmp/output
 
-# python ./scripts/inception_results.py -i $W/data/cropped/file_list.txt -o /tmp -l $W/data/imagenet_slim_labels.txt
+# python ./ssd_results.py -i $W/data/cropped/file_list.txt -o /tmp/output -l $W/data/labels.txt

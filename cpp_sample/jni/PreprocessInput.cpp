@@ -27,11 +27,13 @@ std::vector<std::vector<std::string>> preprocessInput(const char* filePath, size
     // Read lines from the input lists file
     // and store the paths to inputs in strings
     std::ifstream inputList(filePath);
-    std::string fileLine;
+    std::string line;
     std::vector<std::string> lines;
-    while (std::getline(inputList, fileLine)) {
-        if (fileLine.empty()) continue;
-        lines.push_back(fileLine);
+    while (std::getline(inputList, line)) {
+        if (line.empty() || line[0] == '#') {
+            continue;
+        }
+        lines.push_back(line);
     }
     // Store batches of inputs into vectors of strings
     std::vector<std::vector<std::string>> result;
