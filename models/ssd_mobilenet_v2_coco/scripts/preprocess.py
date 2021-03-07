@@ -27,7 +27,6 @@ def __get_img_raw(img_filepath):
     # reverse last dimension: rgb -> bgr
     return arr
 
-
 def __create_mean_raw(img_raw, mean_rgb):
     if img_raw.shape[2] != 3:
         raise RuntimeError('Require image with rgb but channel is %d' % img_raw.shape[2])
@@ -125,7 +124,7 @@ def main():
     parser = argparse.ArgumentParser(description="Batch convert jpgs",
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--img_folder', type=str, default='../data')
-    parser.add_argument('-d', '--dest', type=str, default='../data/cropped')
+    parser.add_argument('-d', '--dest', type=str, default='../data/processed')
     parser.add_argument('-s', '--size', type=int, default=300)
     parser.add_argument('-r', '--resize_type', type=str, default=RESIZE_METHOD_BILINEAR,
                         help='Select image resize type antialias or bilinear. Image resize type should match '
