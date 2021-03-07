@@ -1,6 +1,0 @@
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/TableChairsKids.raw
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/room-sofa-chairs.raw
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/room.raw
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/bear.raw
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/dogs.raw
-/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco/data/processed/chairs.raw

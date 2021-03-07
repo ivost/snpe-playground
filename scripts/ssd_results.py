@@ -16,7 +16,7 @@ import os
 '''
 ROOT = "/home/ivo/github/snpe-playground/models/ssd_mobilenet_v2_coco"
 LABELS = "data/labels.txt"
-FILE_LIST = "data/cropped/file_list.txt"
+FILE_LIST = "data/processed/file_list.txt"
 RESULTS = "/tmp/output"
 
 
@@ -49,7 +49,7 @@ def main():
     # if len(labels) != 1001:
     #     raise RuntimeError('Invalid labels_file: need 1000 categories')
     with open(input_list, 'r') as f:
-        input_files = [line.strip() for line in f.readlines()]
+        input_files = [line.strip() for line in f.readlines() if not line.startswith("#")]
         input_files = [Path(f).name for f in input_files if Path(f).exists()]
 
     if len(input_files) <= 0:
@@ -60,11 +60,26 @@ def main():
 
         for idx, val in enumerate(input_files):
             output = os.path.join(output_dir, 'Result_' + str(idx))
-            classes = read_results(output, 'detection_classes:0.raw')
-            classes2 = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_classes.raw')
-            scores = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_scores.raw')
             num_detections = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_num_detections.raw')
+            print("num_detections", num_detections)
+            n = int(num_detections[0])
+            print("detected", n, "objects")
+            if n < 1:
+                continue
+            scores = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_scores.raw')
+            scores = np.resize(scores, n)
+            print("scores", scores)
+            classes = read_results(output, 'detection_classes:0.raw')
+            classes = np.resize(classes, n)
+            print("classes", classes)
+            # same
+            # classes2 = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_classes.raw')
+            # classes2 = np.resize(classes2, n)
+            # print("classes2", classes)
+
             boxes = read_results(output, 'Postprocessor/BatchMultiClassNonMaxSuppression_boxes.raw')
+            boxes = np.resize(boxes, n*4)
+            print("boxes", boxes)
 
             #
             # if len(float_array) != 1001:
@@ -91,7 +106,7 @@ def main():
 def read_results(dir, name):
     results_file = os.path.join(dir, name)
     arr = np.fromfile(results_file, dtype=np.float32)
-    print(name, arr)
+    # print(name, arr)
     return arr
 
 
