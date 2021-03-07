@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34c70771-80a2-4f04-9c8d-7cc6326c0374" name="Default Changelist" comment="images">
-      <change afterPath="$PROJECT_DIR$/ImageProc/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ImageProc/image.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ImageProc/main.py" afterDir="false" />
+    <list default="true" id="34c70771-80a2-4f04-9c8d-7cc6326c0374" name="Default Changelist" comment="annotated">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ImageProc/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImageProc/viz_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/ssd_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ssd_results.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,29 +46,7 @@
       <recent name="$PROJECT_DIR$/models/ssd_mobilenet_v2_coco/data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="snpe-playground" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ImageProc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ImageProc/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.ssd_results">
     <configuration name="preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="snpe-playground" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -136,10 +113,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="viz_utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="snpe-playground" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ImageProc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ImageProc/viz_utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.ssd_results" />
+        <item itemvalue="Python.viz_utils" />
         <item itemvalue="Python.ssd_prepare" />
         <item itemvalue="Python.preprocess" />
       </list>
@@ -154,7 +153,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615135702143</updated>
       <workItem from="1615135704739" duration="5000" />
-      <workItem from="1615135738210" duration="7643000" />
+      <workItem from="1615135738210" duration="12576000" />
     </task>
     <task id="LOCAL-00001" summary="images">
       <created>1615136129342</created>
@@ -177,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615140093436</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="annotated">
+      <created>1615145387335</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615145387335</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,13 +202,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="images" />
-    <option name="LAST_COMMIT_MESSAGE" value="images" />
+    <MESSAGE value="annotated" />
+    <option name="LAST_COMMIT_MESSAGE" value="annotated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ImageProc/main.py</url>
+          <url>file://$PROJECT_DIR$/ImageProc/viz_utils.py</url>
           <line>59</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
@@ -210,9 +217,9 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/snpe_playground$main.coverage" NAME="main Coverage Results" MODIFIED="1615145299880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ImageProc" />
+    <SUITE FILE_PATH="coverage/snpe_playground$main.coverage" NAME="main Coverage Results" MODIFIED="1615145352468" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ImageProc" />
     <SUITE FILE_PATH="coverage/snpe_playground$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1615138729201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/ssd_mobilenet_v2_coco/scripts" />
     <SUITE FILE_PATH="coverage/snpe_playground$ssd_prepare.coverage" NAME="ssd_prepare Coverage Results" MODIFIED="1615140459562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/snpe_playground$ssd_results.coverage" NAME="ssd_results Coverage Results" MODIFIED="1615140638641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/snpe_playground$ssd_results.coverage" NAME="ssd_results Coverage Results" MODIFIED="1615150129940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

@@ -49,3 +49,4 @@ __pycache__
 /output/
 /models/ssd_mobilenet_v2_coco/data/file_list.txt
 /models/ssd_mobilenet_v2_coco/processed/
+/models/ssd_mobilenet_v2_coco/results/
