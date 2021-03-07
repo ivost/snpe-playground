@@ -63,10 +63,6 @@ https://developer.qualcomm.com/docs/snpe/convert_mobilenetssd.html
 
 wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
 
-
-
-
-
 pip install python-dateutil --upgrade
 
 
@@ -79,3 +75,7 @@ By default, the output layer is the last layer as specified in MobileNetSSD_depl
 To see info about converted DLC model, use snpe-dlc-info tool
 
 snpe-dlc-info -i mobilenet_ssd.dlc
+
+For ONNX
+
+https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov4
